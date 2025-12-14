@@ -1,0 +1,77 @@
+[project]
+name = "html2image-cli"
+version = "0.1.0"
+description = "HTML 转高清图片工具 - 支持高DPI渲染，确保文字清晰"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "daoji", email = "daoji.chang@gmail.com" }]
+keywords = ["html", "image", "screenshot", "playwright", "cli", "high-dpi", "render"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics :: Capture :: Screen Capture",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.11"
+dependencies = [
+    "playwright>=1.40.0",
+    "rich>=13.0.0",
+    "typer>=0.9.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/nicepkg/html2image"
+Repository = "https://github.com/nicepkg/html2image"
+Issues = "https://github.com/nicepkg/html2image/issues"
+
+[project.scripts]
+html2image = "html2image.cli:cli_main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/html2image"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ARG",    # flake8-unused-arguments
+    "SIM",    # flake8-simplify
+]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.0",
+    "ruff>=0.14.9",
+]
+
+[[tool.uv.index]]
+name = "tsinghua"
+url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"
+default = true
