@@ -1217,7 +1217,26 @@
     </div>
 
     <script>
-        lucide.createIcons();
+        // 等待 Lucide 加载完成后初始化图标
+        function initLucideIcons() {
+            if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                lucide.createIcons();
+            } else {
+                // 如果 Lucide 还未加载，等待 100ms 后重试（最多重试 50 次）
+                if (!window._lucideRetry) window._lucideRetry = 0;
+                if (window._lucideRetry < 50) {
+                    window._lucideRetry++;
+                    setTimeout(initLucideIcons, 100);
+                }
+            }
+        }
+
+        // DOM 加载完成后初始化
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLucideIcons);
+        } else {
+            initLucideIcons();
+        }
     </script>
 </body>
 </html>
